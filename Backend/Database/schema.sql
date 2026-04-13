@@ -1,0 +1,5 @@
+CREATE TABLE sessions (
+  id TEXT PRIMARY KEY,
+  data JSONB,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,0 +1,200 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // ===================================
+    // PYTHON DEBUGGING
+    // ===================================
+    {
+      "name": "Python: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "5432",
+        "DB_NAME": "athena_dev",
+        "DB_USER": "athena_user",
+        "DB_PASSWORD": "your_secure_password"
+      }
+    },
+    {
+      "name": "Python: Debug Lambda Function",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lambda_function",
+      "justMyCode": false,
+      "cwd": "${workspaceFolder}/backend/lambdas/process_message",
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "5432",
+        "DB_NAME": "athena_dev",
+        "DB_USER": "athena_user",
+        "DB_PASSWORD": "your_secure_password",
+        "AWS_REGION": "us-east-1"
+      }
+    },
+
+    // ===================================
+    // AWS SAM LOCAL DEBUGGING
+    // ===================================
+    {
+      "name": "SAM: Start Evaluation (Local)",
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "${workspaceFolder}/infrastructure/template.yaml",
+        "logicalId": "StartEvaluationFunction"
+      },
+      "lambda": {
+        "payload": {
+          "json": {
+            "body": "{\"user_id\":\"test-user-123\"}"
+          }
+        },
+        "environmentVariables": {
+          "DB_HOST": "host.docker.internal",
+          "DB_PORT": "5432",
+          "DB_NAME": "athena_dev",
+          "DB_USER": "athena_user",
+          "DB_PASSWORD": "your_secure_password"
+        }
+      }
+    },
+    {
+      "name": "SAM: Process Message (Local)",
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "${workspaceFolder}/infrastructure/template.yaml",
+        "logicalId": "ProcessMessageFunction"
+      },
+      "lambda": {
+        "payload": {
+          "json": {
+            "body": "{\"session_id\":\"test-session-123\",\"message\":\"Hello Athena\"}"
+          }
+        },
+        "environmentVariables": {
+          "DB_HOST": "host.docker.internal",
+          "DB_PORT": "5432",
+          "DB_NAME": "athena_dev",
+          "DB_USER": "athena_user",
+          "DB_PASSWORD": "your_secure_password"
+        }
+      }
+    },
+    {
+      "name": "SAM: Get History (Local)",
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "${workspaceFolder}/infrastructure/template.yaml",
+        "logicalId": "GetHistoryFunction"
+      },
+      "lambda": {
+        "payload": {
+          "json": {
+            "pathParameters": {
+              "sessionId": "test-session-123"
+            },
+            "queryStringParameters": {
+              "limit": "50"
+            }
+          }
+        },
+        "environmentVariables": {
+          "DB_HOST": "host.docker.internal",
+          "DB_PORT": "5432",
+          "DB_NAME": "athena_dev",
+          "DB_USER": "athena_user",
+          "DB_PASSWORD": "your_secure_password"
+        }
+      }
+    },
+    {
+      "name": "SAM: Start API Gateway (All Lambdas)",
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "invokeTarget": {
+        "target": "api",
+        "templatePath": "${workspaceFolder}/infrastructure/template.yaml",
+        "logicalId": "AthenaApi"
+      },
+      "lambda": {
+        "environmentVariables": {
+          "DB_HOST": "host.docker.internal",
+          "DB_PORT": "5432",
+          "DB_NAME": "athena_dev",
+          "DB_USER": "athena_user",
+          "DB_PASSWORD": "your_secure_password"
+        }
+      }
+    },
+
+    // ===================================
+    // REACT DEBUGGING
+    // ===================================
+    {
+      "name": "React: Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend/athena-ui/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*",
+        "webpack:///./*": "${webRoot}/*",
+        "webpack:///./~/*": "${webRoot}/node_modules/*"
+      }
+    },
+    {
+      "name": "React: Edge",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend/athena-ui/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    },
+
+    // ===================================
+    // ATTACH TO RUNNING PROCESSES
+    // ===================================
+    {
+      "name": "Attach to SAM Local",
+      "type": "python",
+      "request": "attach",
+      "port": 5890,
+      "host": "localhost",
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}/backend/lambdas",
+          "remoteRoot": "/var/task"
+        }
+      ]
+    }
+  ],
+  "compounds": [
+    // ===================================
+    // COMPOUND CONFIGURATIONS (Run Multiple at Once)
+    // ===================================
+    {
+      "name": "Full Stack: React + SAM Local",
+      "configurations": [
+        "SAM: Start API Gateway (All Lambdas)",
+        "React: Chrome"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "full-stack",
+        "order": 1
+      }
+    }
+  ]
+}

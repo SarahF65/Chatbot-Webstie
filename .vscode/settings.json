@@ -1,0 +1,56 @@
+{
+  // Python settings
+  "python.defaultInterpreterPath": "/usr/local/bin/python3",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "100"],
+
+  // JavaScript/React settings
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.python"
+  },
+
+  // ESLint settings
+  "eslint.validate": ["javascript", "javascriptreact"],
+
+  // File associations
+  "files.associations": {
+    "*.yaml": "yaml",
+    "*.yml": "yaml"
+  },
+
+  // AWS SAM settings
+  "aws.samcli.location": "/usr/local/bin/sam",
+
+  // Terminal settings
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontSize": 13,
+
+  // Editor settings
+  "editor.rulers": [80, 100],
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // Git settings
+  "git.autofetch": true,
+  "git.confirmSync": false,
+
+  // YAML settings
+  "yaml.schemaStore.enable": false,
+  "yaml.validate": true,
+  "yaml.schemas": {
+    "file:///Users/sarahfeng/Desktop/Chatbot Project/Chatbot/.vscode/empty-schema.json": "serverless.yml"
+  }
+}

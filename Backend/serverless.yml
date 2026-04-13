@@ -1,0 +1,28 @@
+service: athena-backend
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY, 'test-key'}
+
+plugins:
+  - serverless-offline
+
+functions:
+  chat:
+    handler: Lambdas/chat.handler
+    events:
+      - http:
+          path: chat
+          method: post
+          cors: true
+
+  score:
+    handler: Lambdas/score.handler
+    events:
+      - http:
+          path: score
+          method: post
+          cors: true

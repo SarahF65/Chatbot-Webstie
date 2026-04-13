@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "Frontend - React",
+      "path": "frontend/athena-ui"
+    },
+    {
+      "name": "Infrastructure",
+      "path": "infrastructure"
+    },
+    {
+      "name": "Root",
+      "path": "."
+    },
+    {
+      "path": "Backend"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/node_modules": true,
+      "**/__pycache__": true,
+      "**/*.pyc": true,
+    },
+  },
+}

@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "amazonwebservices.aws-toolkit-vscode",
+    "ckolkman.vscode-postgres",
+    "dsznajder.es7-react-js-snippets",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "redhat.vscode-yaml",
+    "eamodio.gitlens",
+    "rangav.vscode-thunder-client",
+    "christian-kohler.path-intellisense",
+    "aaron-bond.better-comments"
+  ]
+}
